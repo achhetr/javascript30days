@@ -39,8 +39,8 @@
 		<style>
 			:root {
 				--base: #ffc600;
-				--spacing: 10px;
-				--blur: 10px;
+				--spacing: 20px;
+				--blur: 2px;
 			}
 			/*
       misc styles, nothing to do with CSS variables
@@ -72,6 +72,28 @@
 			}
 		</style>
 
-		<script></script>
+		<script>
+			// get all input Dom element
+			const inputs = document.querySelectorAll('.controls input');
+
+			// handle update helper fn
+			const handleUpdate = (e) => {
+				// get element
+				const el = e.path[0];
+				// get suffix value using data attribute
+				const suffix = el.dataset['sizing'] || '';
+				// set document element style variable
+				document.documentElement.style.setProperty(
+					`--${el.name}`,
+					el.value + suffix
+				);
+			};
+
+			// add events to each inputs
+			inputs.forEach((input) => {
+				input.addEventListener('change', handleUpdate);
+				input.addEventListener('mousemove', handleUpdate);
+			});
+		</script>
 	</body>
 </html>
